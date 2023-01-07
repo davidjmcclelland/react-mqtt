@@ -16,6 +16,7 @@
   width: 100%;
   max-width: 850px;
   margin-bottom: 20px;
+  max-height: 340px;
 }
 
 .ant-form-inline .ant-form-item {

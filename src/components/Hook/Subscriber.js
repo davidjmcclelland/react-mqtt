@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Card, Form, Input, Row, Col, Button, Select } from 'antd';
 import { QosOption } from './index'
 
@@ -6,6 +6,10 @@ const Subscriber = ({ sub, unSub, showUnsub }) => {
   const [form] = Form.useForm();
   const qosOptions = useContext(QosOption);
 
+      useEffect(() => {
+        form.submit();
+      }, []);
+  
   const record = {
     topic: "EdgeXEvents",
     qos: 0,

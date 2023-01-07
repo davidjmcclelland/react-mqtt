@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Button, Form, Input, Row, Col } from 'antd';
 
 const Connection = ({ connect, disconnect, connectBtn }) => {
@@ -8,6 +8,12 @@ const Connection = ({ connect, disconnect, connectBtn }) => {
     clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
     port: 8000,
   };
+
+    useEffect(() => {
+      handleConnect();
+    }, []);
+  
+  
   const onFinish = (values) => {
     const { host, clientId, port, username, password } = values;
     const url = `ws://${host}:${port}/mqtt`;

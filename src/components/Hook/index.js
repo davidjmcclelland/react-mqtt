@@ -3,6 +3,7 @@ import Connection from './Connection';
 import Publisher from './Publisher';
 import Subscriber from './Subscriber';
 import Receiver from './Receiver';
+import Visualizer from './Visualizer';
 import mqtt from 'mqtt';
 
 export const QosOption = createContext([])
@@ -96,12 +97,17 @@ const HookMqtt = () => {
 
   return (
     <>
-      <Connection connect={mqttConnect} disconnect={mqttDisconnect} connectBtn={connectStatus} />
+      <Connection
+        connect={mqttConnect}
+        disconnect={mqttDisconnect}
+        connectBtn={connectStatus}
+      />
       <QosOption.Provider value={qosOption}>
         <Subscriber sub={mqttSub} unSub={mqttUnSub} showUnsub={isSubed} />
+        <Visualizer payload={payload} />
         <Publisher publish={mqttPublish} />
       </QosOption.Provider>
-      <Receiver payload={payload}/>
+      <Receiver payload={payload} />
     </>
   );
 }
