@@ -6,9 +6,9 @@ class Connection extends React.Component {
     super(props);
     this.state = {
       record: {
-        host: "broker.emqx.io",
+        host: "broker.mqttdashboard.com",
         clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
-        port: 8083,
+        port: 8000,
       },
     };
   }

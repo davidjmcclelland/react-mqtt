@@ -7,7 +7,7 @@ class Publisher extends React.Component {
     super(props);
     this.state = {
       record: {
-        topic: "testtopic/react",
+        topic: "EdgeXEvents",
         qos: 0,
       },
     };
