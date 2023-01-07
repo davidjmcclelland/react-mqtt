@@ -15,10 +15,16 @@
 .App .ant-card {
   width: 100%;
   max-width: 850px;
-  margin-bottom: 20px;
-  max-height: 340px;
+  margin-bottom: 16px;
+  max-height: 360px;
+  overflow: auto;
 }
 
 .ant-form-inline .ant-form-item {
   margin-bottom: 20px;
+}
+
+.scroll-list {
+  max-height: 250px;
+  overflow: auto;
 }

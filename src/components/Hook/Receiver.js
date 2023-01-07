@@ -24,6 +24,7 @@ const Receiver = ({ payload }) => {
       title="Receiver"
     >
       <List
+        className="scroll-list"
         size="small"
         bordered
         dataSource={messages}
