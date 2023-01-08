@@ -6,14 +6,7 @@ const Visualizer = ({ payload }) => {
 
   useEffect(() => {
     if (payload.topic) {
-      let message = JSON.parse(payload.message)
-      let deviceType = message.profileName;
-      
-      console.log(deviceType);
-      if (deviceType === "Random-Integer-Device") {
-        let value = { value: message.readings[0].value };
-        setMessages((messages) => [...messages, value]);
-      }
+      setMessages(messages => [...messages, payload])
     }
   }, [payload])
 
@@ -21,7 +14,7 @@ const Visualizer = ({ payload }) => {
     <List.Item>
       <List.Item.Meta
         title={item.topic}
-        description={item.value}
+        description={item.message}
       />
     </List.Item>
   )
