@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import LineChart from "./LineChart";
+import TimeSeriesChart from "./TimeSeriesChart";
+import moment from 'moment';
 
 // DONE: change legend to show device name instead of topic
 // DONE: put topic in Visualizer title
@@ -9,7 +11,7 @@ import LineChart from "./LineChart";
 // TODO: format date
 // TODO: limit ticks to 2 or 4
 // TODO: format value scale to readable values
-// TODO: fix tooltips floating in chart
+// DONE: fix tooltips floating in chart
 // TODO: allow card to expand to fullscreen
 // TODO: toggle multiple series from MQTT source data
 
@@ -24,12 +26,12 @@ const Visualizer = ({ payload }) => {
       deviceName = rawMessage.deviceName;
       console.log(deviceName);
       if (deviceName === 'Random-UnsignedInteger-Device') {
-        const chartDate = Date.now()
+        const chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
         let message = {
-          y: rawMessage.readings[0].value,
+          y: parseInt(rawMessage.readings[0].value, 10),
           x: chartDate,
         };
-        console.log(rawMessage);
+        console.log(chartDate);
 
         setMessages((messages) => [...messages, message]);
       }
@@ -39,7 +41,7 @@ const Visualizer = ({ payload }) => {
   return (
     <Card title={titleTopic}>
       <div style={{ height: 200 }}>
-        <LineChart mqtt={messages} seriesName={deviceName} />
+        <TimeSeriesChart mqtt={messages} seriesName={deviceName} />
       </div>
     </Card>
   );
