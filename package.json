@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/core": "0.80.0",
+    "@nivo/line": "^0.80.0",
+    "@nivo/tooltip": "0.80.0",
+    "@testing-library/dom": "^8.19.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.7.0",
     "mqtt": "^4.2.1",
+    "prop-types": ">=15.5.10 <16.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "typescript": ">=3.2.1 <4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
