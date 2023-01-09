@@ -1,87 +1,79 @@
-import "../App.css";
-import React from "react";
+import React from 'react';
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  Brush,
-} from "recharts";
+  VictoryChart,
+  VictoryLine,
+  VictoryZoomContainer,
+  VictoryBrushContainer,
+  VictoryTooltip,
+} from "victory";
+class TimeSeriesChart extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
 
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+  handleZoom(domain) {
+    this.setState({ selectedDomain: domain });
+  }
 
-export default function TimeSeriesChart({ mqtt, seriesName }) {
-  return (
-    <LineChart
-      width={500}
-      height={300}
-      data={mqtt}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line
-        type="monotone"
-        dataKey="y"
-        stroke="#8884d8"
-        activeDot={{ r: 8 }}
-      />
-      <Brush dataKey="name" height={30} stroke="#8884d8" />
-      <Line type="monotone" dataKey="x" stroke="#82ca9d" />
-    </LineChart>
-  );
+  handleBrush(domain) {
+    this.setState({ zoomDomain: domain });
+  }
+
+  render() {
+    let mqtt;
+    if (this.props && this.props.mqtt) {
+      console.log(this.props.mqtt);
+      mqtt = this.props.mqtt;
+    };
+    return (
+      <div>
+        <VictoryChart
+          width={550}
+          height={280}
+          scale={{ x: "time" }}
+          containerComponent={
+            <VictoryZoomContainer
+              responsive={true}
+              zoomDimension="x"
+              zoomDomain={this.state.zoomDomain}
+              onZoomDomainChange={this.handleZoom.bind(this)}
+            />
+          }
+        >
+          <VictoryLine
+            style={{
+              data: { stroke: "tomato" },
+            }}
+            labelComponent={<VictoryTooltip />}
+            data={mqtt}
+          />
+        </VictoryChart>
+
+        <VictoryChart
+          width={550}
+          height={90}
+          scale={{ x: "time" }}
+          padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
+          containerComponent={
+            <VictoryBrushContainer
+              responsive={false}
+              brushDimension="x"
+              brushDomain={this.state.selectedDomain}
+              onBrushDomainChange={this.handleBrush.bind(this)}
+            />
+          }
+        >
+          <VictoryLine
+            style={{
+              data: { stroke: "tomato" },
+            }}
+            data={mqtt}
+          />
+        </VictoryChart>
+      </div>
+    );
+  }
 }
+
+export default TimeSeriesChart;
