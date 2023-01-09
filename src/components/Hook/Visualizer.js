@@ -8,12 +8,14 @@ import moment from 'moment';
 // DONE: put topic in Visualizer title
 // DONE: fix warning index.js:1 Warning: Failed prop type: The prop `data[0].id` is marked as required in `Ge`, but its value is `undefined`.
 // TODO: fix warning Error: <path> attribute d: Expected moveto path command ('M' or 'm'), "null".
-// TODO: format date
-// TODO: limit ticks to 2 or 4
-// TODO: format value scale to readable values
+// DONE: format date
+// DONE: limit ticks to 2 or 4
+// DONE: format value scale to readable values
 // DONE: fix tooltips floating in chart
+// DONE: keep series color constant
 // TODO: allow card to expand to fullscreen
 // TODO: toggle multiple series from MQTT source data
+// TODO: add a zoom brush
 
 let titleTopic = '';
 let deviceName;
@@ -26,10 +28,13 @@ const Visualizer = ({ payload }) => {
       deviceName = rawMessage.deviceName;
       console.log(deviceName);
       if (deviceName === 'Random-UnsignedInteger-Device') {
-        const chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
+        let yValue = rawMessage.readings[0].value;
+            yValue = parseInt(yValue.substring(0, 1), 10);
+        console.log(`yValue: ${yValue} ${typeof yValue}`);
+        let chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
         let message = {
-          y: parseInt(rawMessage.readings[0].value, 10),
           x: chartDate,
+          y: yValue,
         };
         console.log(chartDate);
 
@@ -39,8 +44,8 @@ const Visualizer = ({ payload }) => {
   }, [payload])
  
   return (
-    <Card title={titleTopic}>
-      <div style={{ height: 200 }}>
+    <Card title={titleTopic} id="visualizer">
+      <div style={{ height: 480 }}>
         <TimeSeriesChart mqtt={messages} seriesName={deviceName} />
       </div>
     </Card>
