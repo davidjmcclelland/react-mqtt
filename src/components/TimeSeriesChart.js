@@ -1,37 +1,142 @@
-import React, { Component } from "react";
+import React from "react";
 import "../App.css";
-import "../../node_modules/react-vis/dist/style.css";
+
+import { TimeSeries } from "pondjs";
 import {
-  XYPlot,
-  XAxis,
+  Charts,
+  ChartContainer,
+  ChartRow,
   YAxis,
-  HorizontalGridLines,
-  VerticalGridLines,
-  LineSeries,
-} from "react-vis";
+  LineChart,
+  Baseline,
+  Resizable,
+} from "react-timeseries-charts";
 
-const MSEC_DAILY = 86400000;
+import baselines_docs from "./baselines_docs.md";
+import baselines_thumbnail from "./baselines_thumbnail.png";
 
-export default function Example({ mqtt, seriesName }) {
-  const timestamp = new Date("September 9 2017").getTime();
-  return (
-    <XYPlot xType="time" width={300} height={300}>
-      <HorizontalGridLines />
-      <VerticalGridLines />
-      <XAxis title="X Axis" />
-      <YAxis title="Y Axis" />
-      <LineSeries
-        data={mqtt}
-      />
-      <LineSeries data={null} />
-     {/*  <LineSeries
-        data={[
-          { x: timestamp + MSEC_DAILY, y: 10 },
-          { x: timestamp + MSEC_DAILY * 2, y: 4 },
-          { x: timestamp + MSEC_DAILY * 3, y: 2 },
-          { x: timestamp + MSEC_DAILY * 4, y: 15 },
-        ]}
-      /> */}
-    </XYPlot>
-  );
+// Data
+const data = require("./usd_vs_euro.json");
+const points = data.widget[0].data.reverse();
+const series = new TimeSeries({
+  name: "USD_vs_EURO",
+  columns: ["time", "value"],
+  points,
+});
+const style = {
+  value: {
+    stroke: "#a02c2c",
+    opacity: 0.2,
+  },
+};
+
+const baselineStyle = {
+  line: {
+    stroke: "steelblue",
+    strokeWidth: 1,
+    opacity: 0.4,
+    strokeDasharray: "none",
+  },
+  label: {
+    fill: "steelblue",
+  },
+};
+
+const baselineStyleLite = {
+  line: {
+    stroke: "steelblue",
+    strokeWidth: 1,
+    opacity: 0.5,
+  },
+  label: {
+    fill: "steelblue",
+  },
+};
+
+const baselineStyleExtraLite = {
+  line: {
+    stroke: "steelblue",
+    strokeWidth: 1,
+    opacity: 0.2,
+    strokeDasharray: "1,1",
+  },
+  label: {
+    fill: "steelblue",
+  },
+};
+class TimeSeriesChart extends React.Component {
+  state = {
+    tracker: null,
+    timerange: series.range(),
+  };
+
+  handleTrackerChanged = (tracker) => {
+    this.setState({ tracker });
+  };
+
+  handleTimeRangeChange = (timerange) => {
+    this.setState({ timerange });
+  };
+
+  render() {
+    return (
+      <Resizable>
+        <ChartContainer
+          title="Euro price (USD)"
+          titleStyle={{ fill: "#555", fontWeight: 500 }}
+          timeRange={series.range()}
+          format="%b '%y"
+          timeAxisTickCount={5}
+        >
+          <ChartRow height="150">
+            <YAxis
+              id="price"
+              label="Price ($)"
+              min={series.min()}
+              max={series.max()}
+              width="60"
+              format="$,.2f"
+            />
+            <Charts>
+              <LineChart axis="price" series={series} style={style} />
+              <Baseline
+                axis="price"
+                style={baselineStyleLite}
+                value={series.max()}
+                label="Max"
+                position="right"
+              />
+              <Baseline
+                axis="price"
+                style={baselineStyleLite}
+                value={series.min()}
+                label="Min"
+                position="right"
+              />
+              <Baseline
+                axis="price"
+                style={baselineStyleExtraLite}
+                value={series.avg() - series.stdev()}
+              />
+              <Baseline
+                axis="price"
+                style={baselineStyleExtraLite}
+                value={series.avg() + series.stdev()}
+              />
+              <Baseline
+                axis="price"
+                style={baselineStyle}
+                value={series.avg()}
+                label="Avg"
+                position="right"
+              />
+            </Charts>
+          </ChartRow>
+        </ChartContainer>
+      </Resizable>
+    );
+  }
 }
+
+// Export example
+export default TimeSeriesChart;
