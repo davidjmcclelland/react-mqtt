@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
-import LineChart from "./LineChart";
-import TimeSeriesChart from "./TimeSeriesChart";
+import TimeSeriesChart from "../TimeSeriesChart";
 import moment from 'moment';
 
 // DONE: change legend to show device name instead of topic
@@ -31,10 +30,10 @@ const Visualizer = ({ payload }) => {
         let yValue = rawMessage.readings[0].value;
             yValue = parseInt(yValue.substring(0, 1), 10);
         console.log(`yValue: ${yValue} ${typeof yValue}`);
-        let chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
+        let chartDate = new Date(Date.now()); //moment().format('YYYY-mm-DD hh:mm:s.SSS');
         let message = {
-          x: chartDate,
-          y: yValue,
+          y: chartDate,
+          x: yValue,
         };
         console.log(chartDate);
 
