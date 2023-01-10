@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import TimeSeriesChart from "../TimeSeriesChart";
-import moment from 'moment';
+import moment from "moment";
 
-// DONE: change legend to show device name instead of topic
+// TODO: create data in required format
 // DONE: put topic in Visualizer title
 // DONE: fix warning index.js:1 Warning: Failed prop type: The prop `data[0].id` is marked as required in `Ge`, but its value is `undefined`.
 // TODO: fix warning Error: <path> attribute d: Expected moveto path command ('M' or 'm'), "null".
@@ -30,14 +30,15 @@ const Visualizer = ({ payload }) => {
         let yValue = rawMessage.readings[0].value;
             yValue = parseInt(yValue.substring(0, 1), 10);
         console.log(`yValue: ${yValue} ${typeof yValue}`);
-        let chartDate = new Date(Date.now()); //moment().format('YYYY-mm-DD hh:mm:s.SSS');
-        let message = {
-          y: chartDate,
-          x: yValue,
-        };
-        console.log(chartDate);
+        let chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
+        let message = [
+          chartDate,
+          yValue
+        ];
+        console.log(message);
 
         setMessages((messages) => [...messages, message]);
+        console.log(messages);
       }
     }
   }, [payload])
