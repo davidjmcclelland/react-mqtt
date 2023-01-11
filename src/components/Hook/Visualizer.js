@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button } from 'antd';
+import { Card } from 'antd';
 import TimeSeriesChart from "../TimeSeriesChart";
 import moment from "moment";
+import _ from 'lodash';
 
 let titleTopic = '';
 let deviceName;
@@ -10,6 +11,7 @@ let deviceName;
   
 const Visualizer = ({ payload }) => {
   const [messages, setMessages] = useState([]);
+
   useEffect(() => {
     if (payload.topic) {
       titleTopic = `${payload.topic} Visualizer`;
@@ -27,9 +29,11 @@ const Visualizer = ({ payload }) => {
           value: yValue
         };
         console.log(message);
-
+        if(messages.length > 20) {
+          messages.shift();
+        }
         setMessages((messages) => [...messages, message]);
-        console.log(messages);
+        console.log(messages.length);
       }
     }
   }, [payload])
