@@ -26,12 +26,13 @@ const Visualizer = ({ payload }) => {
       let rawMessage = JSON.parse(payload.message);
       deviceName = rawMessage.deviceName;
       console.log(deviceName);
-      if (deviceName === 'Random-UnsignedInteger-Device') {
+      if (deviceName.indexOf('Integer') > -1) {
         let yValue = rawMessage.readings[0].value;
-            yValue = parseInt(yValue.substring(0, 1), 10);
+            yValue = parseInt(yValue.substring(1, 2), 10);
         console.log(`yValue: ${yValue} ${typeof yValue}`);
         let chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
         let message = {
+          deviceName: deviceName,
           year: chartDate,
           value: yValue
         };
