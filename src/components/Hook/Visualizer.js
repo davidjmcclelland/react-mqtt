@@ -31,10 +31,10 @@ const Visualizer = ({ payload }) => {
             yValue = parseInt(yValue.substring(0, 1), 10);
         console.log(`yValue: ${yValue} ${typeof yValue}`);
         let chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
-        let message = [
-          chartDate,
-          yValue
-        ];
+        let message = {
+          year: chartDate,
+          value: yValue
+        };
         console.log(message);
 
         setMessages((messages) => [...messages, message]);
