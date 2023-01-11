@@ -20,7 +20,7 @@ const Visualizer = ({ payload }) => {
         let yValue = rawMessage.readings[0].value;
             yValue = parseInt(yValue.substring(1, 2), 10);
         console.log(`yValue: ${yValue} ${typeof yValue}`);
-        let chartDate = moment().format('YYYY-mm-DD hh:mm:s.SSS');
+        let chartDate = moment().format('hh:mm:s.SSS');
         let message = {
           deviceName: deviceName,
           year: chartDate,
