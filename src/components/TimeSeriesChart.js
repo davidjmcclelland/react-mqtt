@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Line } from '@ant-design/plots'
+import { Line } from "@ant-design/plots";
 import _ from "lodash"; 
 
 const TimeSeriesChart = ({ mqtt, seriesName }) => {
@@ -7,12 +7,18 @@ const TimeSeriesChart = ({ mqtt, seriesName }) => {
   const data = mqtt;
   const config = {
     data,
-    height: 400,
+    height: 490,
+    renderer: "svg",
     xField: "year",
     yField: "value",
     seriesField: "deviceName",
     xAxis: {
-      nice: true,
+      label: {
+        style: {
+            fontSize: 12,
+        }
+      },
+      nice: false,
       tickLine: {
         style: {
           lineWidth: 2,
@@ -132,6 +138,7 @@ const TimeSeriesChart = ({ mqtt, seriesName }) => {
       itemName: {
         style: {
           fill: "#000",
+          height: 10,
         },
         formatter: (name) => name,
       },
@@ -150,7 +157,15 @@ const TimeSeriesChart = ({ mqtt, seriesName }) => {
         };
       }
     },
-/*     slider: {
+    areaStyle: ({ deviceName }) => {
+      if (deviceName === "Random-UnsignedInteger-Device") {
+        return {
+          fill: "l(270) 0:#ffffff 0.4:#FF5D88 1:#D62A0D",
+        };
+      }
+      return { fill: "l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff" };
+    },
+    /*     slider: {
       start: 0,
       end: 1,
     }, */
