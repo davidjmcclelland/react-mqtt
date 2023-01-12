@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import { Line } from "@ant-design/plots";
-import _ from "lodash"; 
 
 const TimeSeriesChart = ({ mqtt, seriesName }) => {
   

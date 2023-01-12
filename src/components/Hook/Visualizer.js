@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import TimeSeriesChart from "../TimeSeriesChart";
 import moment from "moment";
-import _ from 'lodash';
 
 let titleTopic = '';
 let deviceName;
@@ -14,15 +13,17 @@ const Visualizer = ({ payload }) => {
 
   useEffect(() => {
     if (payload.topic) {
-      titleTopic = `${payload.topic} Visualizer`;
-      let rawMessage = JSON.parse(payload.message);
-      deviceName = rawMessage.deviceName;
-      console.log(deviceName);
-      if (deviceName.indexOf('Integer') > -1) {
-        let yValue = rawMessage.readings[0].value;
+      try {
+        titleTopic = `${payload.topic} Visualizer`;
+        let rawMessage = JSON.parse(payload.message);
+      
+        deviceName = rawMessage.deviceName;
+        console.log(deviceName);
+        if (deviceName.indexOf('Integer') > -1) {
+          let yValue = rawMessage.readings[0].value;
             yValue = parseInt(yValue.substring(1, 2), 10);
-        console.log(`yValue: ${yValue} ${typeof yValue}`);
-        let chartDate = moment().format('hh:mm:s.SSS');
+          console.log(`yValue: ${yValue} ${typeof yValue}`);
+          let chartDate = moment().format('hh:mm:s.SSS');
         let message = {
           deviceName: deviceName,
           year: chartDate,
@@ -34,6 +35,9 @@ const Visualizer = ({ payload }) => {
         }
         setMessages((messages) => [...messages, message]);
         console.log(messages.length);
+        }
+      } catch (error) {
+        console.error(error, 'Unexpected message format');
       }
     }
   }, [payload])
