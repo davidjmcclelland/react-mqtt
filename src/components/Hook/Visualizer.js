@@ -15,26 +15,42 @@ const Visualizer = ({ payload }) => {
     if (payload.topic) {
       try {
         titleTopic = `${payload.topic} Visualizer`;
+        console.log(`payload: ${payload.message}`);
         let rawMessage = JSON.parse(payload.message);
-      
+        //console.log(`raw: ${rawMessage}`);
+        let xVal = parseInt(rawMessage.readings[0].value.x, 10);
+        let yVal = parseInt(rawMessage.readings[0].value.y, 10);
+        let zVal = parseInt(rawMessage.readings[0].value.z, 10);
+        console.log(`val: ${xVal}, ${yVal}, ${zVal}`);
         deviceName = rawMessage.deviceName;
-        console.log(deviceName);
-        if (deviceName.indexOf('Integer') > -1) {
-          let yValue = rawMessage.readings[0].value;
-            yValue = parseInt(yValue.substring(1, 2), 10);
-          console.log(`yValue: ${yValue} ${typeof yValue}`);
+        //console.log(deviceName);
+        if (deviceName.indexOf('M5') > -1) {
+            //yValue = parseInt(yValue.substring(1, 2), 10);
+          //console.log(`yValue: ${yValue} ${typeof yValue}`);
           let chartDate = moment().format('hh:mm:s.SSS');
-        let message = {
-          deviceName: deviceName,
-          year: chartDate,
-          value: yValue
-        };
-        console.log(message);
-        if(messages.length > 20) {
-          messages.shift();
-        }
-        setMessages((messages) => [...messages, message]);
-        console.log(messages.length);
+          let messageX = {
+            deviceName: "X-Axis",
+            year: chartDate,
+            value: xVal,
+          };
+          let messageY = {
+            deviceName: "Y-Axis",
+            year: chartDate,
+            value: yVal,
+          };
+          let messageZ = {
+            deviceName: "Z-Axis",
+            year: chartDate,
+            value: zVal,
+          };
+          console.log(messageX);
+          if(messages.length > 40) {
+            messages.shift();
+            messages.shift();
+            messages.shift();
+          }
+          setMessages((messages) => [...messages, messageX, messageY, messageZ]);
+          //console.log(messages.length);
         }
       } catch (error) {
         console.error(error, 'Unexpected message format');
