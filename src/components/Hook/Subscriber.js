@@ -11,7 +11,7 @@ const Subscriber = ({ sub, unSub, showUnsub }) => {
       }, []);
   
   const record = {
-    topic: "EdgeXEvents",
+    topic: "EdgeXYZ",
     qos: 0,
   };
 
