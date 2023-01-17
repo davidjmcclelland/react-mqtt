@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { Card, Form, Input, Row, Col, Button, Select } from 'antd';
-import { QosOption } from './index'
+import React, { useContext } from "react";
+import { Card, Form, Input, Row, Col, Button, Select } from "antd";
+import { QosOption } from "./index";
 
 const Publisher = ({ publish }) => {
   const [form] = Form.useForm();
   const qosOptions = useContext(QosOption);
 
   const record = {
-    topic: "EdgeXYZ",
+    topic: "EdgeXYZ2",
     qos: 0,
   };
 
@@ -67,6 +67,6 @@ const Publisher = ({ publish }) => {
   ]
   } */
   return <Card title="Publisher">{PublishForm}</Card>;
-}
+};
 
 export default Publisher;

@@ -4,7 +4,7 @@ import Publisher from './Publisher';
 import Subscriber from './Subscriber';
 import Receiver from './Receiver';
 import Visualizer from './Visualizer';
-import mqtt from 'mqtt';
+import mqtt from "precompiled-mqtt";
 
 export const QosOption = createContext([])
 const qosOption = [

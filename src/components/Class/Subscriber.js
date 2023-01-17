@@ -7,7 +7,7 @@ class Subscriber extends React.Component {
     super(props);
     this.state = {
       record: {
-        topic: "EdgeXYZ",
+        topic: "EdgeXYZ2",
         qos: 0,
       },
     };
