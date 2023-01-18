@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
+    "@react-three/drei": "^9.53.0",
     "@react-three/fiber": "^8.10.0",
     "@testing-library/dom": "^8.19.1",
     "@testing-library/jest-dom": "^5.16.5",

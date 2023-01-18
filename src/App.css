@@ -29,6 +29,19 @@
   max-height: 600px;
 }
 
+#ModelViewer {
+  height: 600px;
+  max-height: 600px;
+}
+
+#ModelViewer .ant-card-body{
+  height: 100%;
+}
+
+Canvas {
+  height: 100%;
+}
+
 svg text[font-size="12"] {
   transform: translateY(-1px);
 }

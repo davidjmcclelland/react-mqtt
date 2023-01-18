@@ -4,6 +4,7 @@ import Publisher from './Publisher';
 import Subscriber from './Subscriber';
 import Receiver from './Receiver';
 import Visualizer from './Visualizer';
+import ModelViewer from '../ModelViewer';
 import mqtt from "precompiled-mqtt";
 
 export const QosOption = createContext([])
@@ -104,6 +105,7 @@ const HookMqtt = () => {
       />
       <QosOption.Provider value={qosOption}>
         <Subscriber sub={mqttSub} unSub={mqttUnSub} showUnsub={isSubed} />
+        <ModelViewer scale=".1" modelPath={"/m5StackCore2.glb"} />
         <Visualizer payload={payload} />
         <Publisher publish={mqttPublish} />
       </QosOption.Provider>
