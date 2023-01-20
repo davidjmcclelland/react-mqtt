@@ -5,8 +5,6 @@ import moment from "moment";
 
 let titleTopic = '';
 let deviceName;
-
-
   
 const Visualizer = ({ payload }) => {
   const [messages, setMessages] = useState([]);
@@ -15,13 +13,13 @@ const Visualizer = ({ payload }) => {
     if (payload.topic) {
       try {
         titleTopic = `${payload.topic} Visualizer`;
-        console.log(`payload: ${payload.message}`);
+        //console.log(`payload: ${payload.message}`);
         let rawMessage = JSON.parse(payload.message);
         //console.log(`raw: ${rawMessage}`);
         let xVal = parseInt(rawMessage.readings[0].value.x, 10);
         let yVal = parseInt(rawMessage.readings[0].value.y, 10);
         let zVal = parseInt(rawMessage.readings[0].value.z, 10);
-        console.log(`val: ${xVal}, ${yVal}, ${zVal}`);
+        //console.log(`val: ${xVal}, ${yVal}, ${zVal}`);
         deviceName = rawMessage.deviceName;
         //console.log(deviceName);
         if (deviceName.indexOf('M5') > -1) {
@@ -43,7 +41,7 @@ const Visualizer = ({ payload }) => {
             year: chartDate,
             value: zVal,
           };
-          console.log(messageX);
+          //console.log(messageX);
           if(messages.length > 40) {
             messages.shift();
             messages.shift();

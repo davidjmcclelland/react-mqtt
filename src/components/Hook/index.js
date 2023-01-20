@@ -105,7 +105,7 @@ const HookMqtt = () => {
       />
       <QosOption.Provider value={qosOption}>
         <Subscriber sub={mqttSub} unSub={mqttUnSub} showUnsub={isSubed} />
-        <ModelViewer scale="1" modelPath={"/m5StackCore2.glb"} />
+        <ModelViewer payload={payload} scale="1" modelPath={"/m5StackCore2.glb"} />
         <Visualizer payload={payload} />
         <Publisher publish={mqttPublish} />
       </QosOption.Provider>

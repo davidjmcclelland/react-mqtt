@@ -2,18 +2,20 @@ import React, {useRef, useState} from 'react';
 import {useLoader, useFrame} from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-const GltfModel = ({ modelPath, scale = 1, position = [0, 0, 0] }) => {
+const GltfModel = ({ modelPath, scale = 1, position = [0, 0, 0], rotation = {x:1,y:1,z:1} }) => {
   const ref = useRef();
   const gltf = useLoader(GLTFLoader, modelPath);
   const [hovered, hover] = useState(false);
-
+  console.log(rotation);
+  
   useFrame(
     (state, delta) => (
-      (ref.current.rotation.y += 0.003),
-      (ref.current.rotation.x += 0.002),
-      (ref.current.rotation.z += 0.001)
+      (ref.current.rotation.y = rotation.y),
+      (ref.current.rotation.x = rotation.x),
+      (ref.current.rotation.z = rotation.z)
     )
   );
+
   return (
     <>
       <primitive
@@ -25,7 +27,7 @@ const GltfModel = ({ modelPath, scale = 1, position = [0, 0, 0] }) => {
         onPointerOut={(event) => hover(false)}
       />
     </>
-  )
+  );
 }
 
 export default GltfModel;
