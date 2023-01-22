@@ -11,7 +11,7 @@ const Subscriber = ({ sub, unSub, showUnsub }) => {
   }, []);
 
   const record = {
-    topic: "EdgeXYZ2",
+    topic: process.env.REACT_APP_TOPIC,
     qos: 0,
   };
 

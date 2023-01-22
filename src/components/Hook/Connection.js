@@ -4,9 +4,9 @@ import { Card, Button, Form, Input, Row, Col } from 'antd';
 const Connection = ({ connect, disconnect, connectBtn }) => {
   const [form] = Form.useForm();
   const record = {
-    host: 'broker.mqttdashboard.com',
+    host: process.env.REACT_APP_MQTT_SERVER,
     clientId: `mqttjs_ + ${Math.random().toString(16).substr(2, 8)}`,
-    port: 8000,
+    port: process.env.REACT_APP_MQTT_PORT,
   };
 
     useEffect(() => {
@@ -19,18 +19,18 @@ const Connection = ({ connect, disconnect, connectBtn }) => {
     const url = `ws://${host}:${port}/mqtt`;
     const options = {
       keepalive: 30,
-      protocolId: 'MQTT',
+      protocolId: "MQTT",
       protocolVersion: 4,
       clean: true,
       reconnectPeriod: 1000,
       connectTimeout: 30 * 1000,
       will: {
-        topic: 'WillMsg',
-        payload: 'Connection Closed abnormally..!',
-        qos: 0,
-        retain: false
+        topic: "WillMsg",
+        payload: "Connection Closed abnormally..!",
+        qos: process.env.REACT_APP_QOS,
+        retain: false,
       },
-      rejectUnauthorized: false
+      rejectUnauthorized: false,
     };
     options.clientId = clientId;
     options.username = username;

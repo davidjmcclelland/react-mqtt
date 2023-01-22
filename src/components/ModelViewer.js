@@ -2,7 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import { Card } from "antd";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
-import { OrbitControls, MathUtils } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import GltfModel from "./GltfModel";
 
 let titleTopic = "";

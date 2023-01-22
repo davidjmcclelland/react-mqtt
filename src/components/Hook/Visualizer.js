@@ -22,7 +22,7 @@ const Visualizer = ({ payload }) => {
         //console.log(`val: ${xVal}, ${yVal}, ${zVal}`);
         deviceName = rawMessage.deviceName;
         //console.log(deviceName);
-        if (deviceName.indexOf('M5') > -1) {
+        if (deviceName.indexOf('integer') > -1) {
             //yValue = parseInt(yValue.substring(1, 2), 10);
           //console.log(`yValue: ${yValue} ${typeof yValue}`);
           let chartDate = moment().format('hh:mm:s.SSS');

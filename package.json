@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12"
+    "@babel/core": "^7.20.12",
+    "react-test-renderer": "^18.2.0"
   }
 }

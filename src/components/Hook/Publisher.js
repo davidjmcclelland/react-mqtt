@@ -7,7 +7,7 @@ const Publisher = ({ publish }) => {
   const qosOptions = useContext(QosOption);
 
   const record = {
-    topic: "EdgeXYZ2",
+    topic: process.env.REACT_APP_MQTT_SERVER,
     qos: 0,
   };
 
